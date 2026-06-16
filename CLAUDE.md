@@ -50,3 +50,57 @@ See `GETTING_STARTED.md`. For an interactive GPU node, ask the `launch` agent.
 
 - `log` never submits. No agent deletes data or changes account settings without approval.
 - Every submitted run gets a ledger line before it counts as launched.
+
+## Coding Philosophy
+
+### Code Style
+- **Pythonic**: Idiomatic Python, PEP 8
+- **Concise**: Favor brevity and clarity over verbosity
+- **Minimal**: Simplest solution that works; avoid over-engineering
+- **Functional**: Prefer functional patterns where appropriate
+
+### Error Handling
+- **Fail Fast**: Let code fail quickly and visibly
+- **Minimal Try/Except**: Avoid blocks that mask underlying issues
+- **No Silent Failures**: Don't catch exceptions unless you can meaningfully handle them. Never swallow I/O errors by returning blank/zero data — a missing or unreadable file is a real problem that must surface as a hard error.
+
+### Testing
+- Write only essential tests that catch critical functionality
+- Prefer integration tests that test real workflows over unit tests for trivial operations
+
+### What TO Do
+- Use list/dict comprehensions instead of explicit loops when clearer
+- Use type hints for function signatures
+- Write docstrings for public functions and classes
+- Use `pathlib` instead of `os.path` for file operations
+- Prefer f-strings over `.format()` or `%` formatting
+- Use context managers for resource management
+- Handle edge cases with early returns rather than nested conditions
+
+### What NOT To Do
+- Don't wrap every operation in try/except "just in case"
+- Don't add unnecessary abstraction layers
+- Don't catch broad exceptions (`Exception`, `BaseException`) unless absolutely necessary
+- Don't suppress errors with `pass` in except blocks
+- Don't add configuration options for things that don't need to be configurable
+- Avoid over-use of argparse and CLI for simple scripts
+
+### File I/O
+```python
+# Good: let operations fail fast and explicitly
+def process_file(path):
+    with open(path) as f:        # FileNotFoundError bubbles up clearly
+        return json.load(f)      # JSONDecodeError bubbles up clearly
+
+# OK: explicit handling of a legitimately optional file
+def load_optional_config(path):
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return None
+```
+
+### Comments
+- Document complex algorithms, non-obvious constraints, or workarounds for external library bugs.
+- Don't document obvious operations, standard library usage, or self-explanatory code.
