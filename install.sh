@@ -5,13 +5,15 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-mkdir -p ~/.claude/agents ~/.claude/skills/ledger-format
+mkdir -p ~/.claude/agents ~/.claude/skills/ledger-format ~/.claude/skills/utilization-analysis
 
-cp "$REPO_DIR"/agents/launch.md  ~/.claude/agents/
-cp "$REPO_DIR"/agents/log.md     ~/.claude/agents/
-cp "$REPO_DIR"/agents/ledger.md  ~/.claude/agents/
-cp "$REPO_DIR"/agents/analytics.md ~/.claude/agents/
-cp "$REPO_DIR"/skills/ledger-format/SKILL.md ~/.claude/skills/ledger-format/
+cp "$REPO_DIR"/agents/launch.md       ~/.claude/agents/
+cp "$REPO_DIR"/agents/log.md          ~/.claude/agents/
+cp "$REPO_DIR"/agents/utilization.md  ~/.claude/agents/
+cp "$REPO_DIR"/agents/ledger.md       ~/.claude/agents/
+cp "$REPO_DIR"/agents/analytics.md      ~/.claude/agents/
+cp "$REPO_DIR"/skills/ledger-format/SKILL.md       ~/.claude/skills/ledger-format/
+cp "$REPO_DIR"/skills/utilization-analysis/SKILL.md ~/.claude/skills/utilization-analysis/
 
 echo "Installed agents and skills to ~/.claude/"
 echo

@@ -43,5 +43,6 @@ metric          { name, value, prior_best, delta }
 ## Rules
 
 - Corrections append a new line referencing the original `run_id` — never edit history.
-- `requested` vs `actual` drives launch sizing. Keep both.
+- `requested` vs `actual` drives launch sizing; the `utilization` agent computes
+  ratios and peer comparisons from both. Keep both accurate.
 - Comet URL: `comet.com/{workspace}/{project}/{experiment_key}`.

@@ -12,7 +12,9 @@ You are the launch agent. Size jobs from history, catch config mistakes, submit.
 1. Read the config (Hydra or script args).
 2. Query `experiments/ledger.jsonl` for similar past runs (same task, dataset scale,
    backbone). Use **actual** peak GPU memory and elapsed, not requested values.
-   Pull from Comet API if ledger has the `experiment_key`.
+   Pull from Comet API if ledger has the `experiment_key`. For jobs near or above the
+   approval caps, or when `requested` looks much larger than peers, invoke the
+   `utilization` agent for a requested-vs-actual comparison before submitting.
 3. Sanity-check:
    - GPU tier: don't request `hpg-turin` / multi-GPU if a single L4 sufficed before.
    - Batch size ↔ LR: flag obvious mismatches.

@@ -64,6 +64,8 @@ Click the Claude icon in the VS Code sidebar, or run `claude` in the terminal.
 Launch a rerun of the last bird-detector training job.
 Check whether my overnight runs are still alive.
 What did the last five tree jobs peak at for GPU memory?
+Compare requested vs actual memory for my last completed tree run — are we over-asking?
+Before I submit this job, what resources did similar bird runs actually use?
 ```
 
 > To reconnect after a tunnel drop: `sbatch ~/tunnel.sh` again.

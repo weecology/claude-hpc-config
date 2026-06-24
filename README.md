@@ -10,10 +10,12 @@ detection projects (trees, birds, etc.).
 agents/
   launch.md      # sizes and submits Slurm jobs; reads ledger for past resource use
   log.md         # monitors runs, records outcomes; read-only on the cluster
+  utilization.md # requested vs actual resource analysis; advisory sizing
   ledger.md      # steward of experiments/ledger.jsonl
   analytics.md   # computes project metrics after a run — fork this per project
 skills/
-  ledger-format/ # shared JSONL schema used by all agents
+  ledger-format/         # shared JSONL schema used by all agents
+  utilization-analysis/  # Slurm/Comet ratios and similar-run matching
 CLAUDE.md        # copy into each project repo root
 GETTING_STARTED.md
 install.sh
@@ -76,13 +78,16 @@ launch agent ──reads──▶ ledger (past resource use)
     │ sbatch                 │ append / patch
     ▼                        │
 Slurm job ◀── monitors ── log agent
+    │                        │
+    └── utilization agent ───┘  (requested vs actual; advisory)
                              │
                         analytics agent (on completion)
 ```
 
 The ledger (`experiments/ledger.jsonl`) is the shared state: `launch` writes
-the intent, `log` writes the outcome, `analytics` writes the result. All three
-layers live in the same JSONL line, keyed by `run_id`.
+the intent, `log` writes the outcome, `utilization` interprets waste vs headroom,
+`analytics` writes the result. All layers live in the same JSONL line, keyed by
+`run_id`.
 
 ## Customizing for a new project
 

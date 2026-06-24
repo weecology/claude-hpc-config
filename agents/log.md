@@ -22,7 +22,8 @@ From Slurm (`sacct`/`seff`): exit code, state, elapsed, MaxRSS, allocated vs use
 From Comet API (`experiment_key`): peak GPU memory, mean GPU utilization, final metrics.
 
 Patch via `ledger-format`: `status`, `exit_code`, `elapsed`, `actual`, `oom`, `timeout`.
-When Slurm and Comet disagree on failure, trust Slurm.
+When Slurm and Comet disagree on failure, trust Slurm. After patching, the
+`utilization` agent can turn `requested` vs `actual` into sizing advice for future runs.
 
 ## Never
 
